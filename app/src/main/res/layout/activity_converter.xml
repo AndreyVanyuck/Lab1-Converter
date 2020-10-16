@@ -7,20 +7,15 @@
     android:orientation="vertical"
     tools:context=".ConverterActivity">
 
-
-    <fragment
+    <FrameLayout
         android:id="@+id/dataFragment"
-        android:name="com.example.converter.DataFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1"/>
+        android:layout_weight="1" />
 
-    <fragment
+    <FrameLayout
         android:id="@+id/numPadFragment"
-        android:name="com.example.converter.NumPadFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1"
-        tools:ignore="MissingConstraints"
-        tools:layout="@layout/fragment_num_pad" />
+        android:layout_weight="1" />
 </LinearLayout>
