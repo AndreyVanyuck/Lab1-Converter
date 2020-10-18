@@ -8,12 +8,12 @@ import androidx.lifecycle.ViewModelProvider;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
-
-import com.example.converter.unit.Temperature;
+import android.widget.Toast;
 
 
 public class DataFragment extends Fragment {
@@ -37,6 +37,32 @@ public class DataFragment extends Fragment {
         String unitCategory = (String) getActivity().getIntent().getSerializableExtra("unit");
         setTextSpinner(unitCategory);
 
+        spinnerFrom.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                viewModel.setFromUnit(spinnerFrom.getSelectedItem().toString());
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        spinnerTo.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                viewModel.setToUnit(spinnerTo.getSelectedItem().toString());
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+
+
         button_convert.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -53,16 +79,22 @@ public class DataFragment extends Fragment {
                 adapter = ArrayAdapter.createFromResource(this.getActivity(),
                         R.array.temperature, android.R.layout.simple_spinner_item);
                 viewModel.setUnitCategory(UnitCategory.TEMPERATURE);
-                viewModel.setFromUnit(Temperature.CELSIUS);
-                viewModel.setToUnit(Temperature.CELSIUS);
+                viewModel.setFromUnit("Celsius");
+                viewModel.setToUnit("Celsius");
                 break;
             case "Distance":
                 adapter = ArrayAdapter.createFromResource(this.getActivity(),
                         R.array.distance, android.R.layout.simple_spinner_item);
+                viewModel.setUnitCategory(UnitCategory.DISTANCE);
+                viewModel.setFromUnit("Meter");
+                viewModel.setToUnit("Meter");
                 break;
             case "Weight":
                 adapter = ArrayAdapter.createFromResource(this.getActivity(),
                         R.array.weight, android.R.layout.simple_spinner_item);
+                viewModel.setUnitCategory(UnitCategory.WEIGHT);
+                viewModel.setFromUnit("Kilogram");
+                viewModel.setToUnit("Kilogram");
                 break;
         }
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -75,6 +107,7 @@ public class DataFragment extends Fragment {
 
         if (text == "C"){
             textView.setText("");
+            viewModel.setFromValue("");
             return;
         }
 
@@ -84,6 +117,7 @@ public class DataFragment extends Fragment {
             }
             if (textOfTextView == ""){
                textView.setText("0" + text);
+               viewModel.setFromValue("0" + text);
                return;
             }
             textView.setText(textOfTextView + text);
@@ -95,5 +129,6 @@ public class DataFragment extends Fragment {
         else {
             textView.setText(textOfTextView + text);
         }
+        viewModel.setFromValue(textOfTextView + text);
     }
 }
