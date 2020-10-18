@@ -13,7 +13,9 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import com.example.converter.ViewModel.ConverterViewModel;
+import com.example.converter.unit.UnitCategory;
 
 
 public class DataFragment extends Fragment {
@@ -66,7 +68,9 @@ public class DataFragment extends Fragment {
         button_convert.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                int position = spinnerFrom.getSelectedItemPosition();
+                TextView textViewTo = (TextView) getActivity().findViewById(R.id.textViewTo);
+                viewModel.convert();
+                textViewTo.setText(viewModel.getToValue().toString());
             }
         });
         return view;
@@ -102,7 +106,7 @@ public class DataFragment extends Fragment {
         spinnerFrom.setAdapter(adapter);
     }
     public void setText(String text){
-        TextView textView = (TextView)getView().findViewById(R.id.textView);
+        TextView textView = (TextView)getView().findViewById(R.id.textViewFrom);
         String textOfTextView = textView.getText().toString();
 
         if (text == "C"){

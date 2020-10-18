@@ -3,28 +3,18 @@ package com.example.converter;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
 
-import android.app.Fragment;
-import android.app.FragmentManager;
 import android.os.Bundle;
-import android.provider.ContactsContract;
-import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.FrameLayout;
-import android.widget.Spinner;
-import android.widget.TextView;
+
 import android.widget.Toast;
 
-import static android.widget.ArrayAdapter.createFromResource;
+import com.example.converter.ViewModel.ConverterViewModel;
+
 
 
 public class ConverterActivity extends AppCompatActivity implements NumPadFragment.OnFragmentInteractionListener {
     NumPadFragment numPadFragment;
     DataFragment dataFragment;
-    Spinner spinnerFrom;
-    Spinner spinnerTo;
     ConverterViewModel viewModel;
 
     @Override
@@ -33,9 +23,6 @@ public class ConverterActivity extends AppCompatActivity implements NumPadFragme
         setContentView(R.layout.activity_converter);
 
         viewModel = new ViewModelProvider(this).get(ConverterViewModel.class);
-//
-//        spinnerFrom = (Spinner) findViewById(R.id.spinnerFrom);
-//        spinnerTo = (Spinner) findViewById(R.id.spinnerTo);
         numPadFragment = new NumPadFragment();
         dataFragment = new DataFragment();
 
