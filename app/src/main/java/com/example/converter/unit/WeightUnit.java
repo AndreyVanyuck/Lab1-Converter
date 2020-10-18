@@ -1,6 +1,7 @@
-package com.example.converter;
+package com.example.converter.unit;
 
-public class DistanceConverter implements IValueConverter{
+
+public class WeightUnit implements IValueConverter {
     @Override
     public double Convert(double num) {
         return 0;

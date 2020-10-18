@@ -1,4 +1,4 @@
-package com.example.converter;
+package com.example.converter.unit;
 
 interface IValueConverter {
     public double Convert(double num);
