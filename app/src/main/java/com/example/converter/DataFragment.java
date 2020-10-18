@@ -3,32 +3,83 @@ package com.example.converter;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.TextView;
+
+import com.example.converter.unit.Temperature;
 
 
 public class DataFragment extends Fragment {
+    Button button_convert;
+    Spinner spinnerFrom;
+    Spinner spinnerTo;
+    ConverterViewModel viewModel;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_data, container, false);
+
+        View view = inflater.inflate(R.layout.fragment_data, container, false);
+
+        button_convert = (Button) view.findViewById(R.id.buttonConvert);
+        spinnerFrom = (Spinner) view.findViewById(R.id.spinnerFrom);
+        spinnerTo = (Spinner) view.findViewById(R.id.spinnerTo);
+        viewModel = new ViewModelProvider(requireActivity()).get(ConverterViewModel.class);
+
+        String unitCategory = (String) getActivity().getIntent().getSerializableExtra("unit");
+        setTextSpinner(unitCategory);
+
+        button_convert.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                int position = spinnerFrom.getSelectedItemPosition();
+            }
+        });
+        return view;
+    }
+
+    private void setTextSpinner(String unitCategory){
+        ArrayAdapter<CharSequence> adapter = null;
+        switch (unitCategory) {
+            case "Temperature":
+                adapter = ArrayAdapter.createFromResource(this.getActivity(),
+                        R.array.temperature, android.R.layout.simple_spinner_item);
+                viewModel.setUnitCategory(UnitCategory.TEMPERATURE);
+                viewModel.setFromUnit(Temperature.CELSIUS);
+                viewModel.setToUnit(Temperature.CELSIUS);
+                break;
+            case "Distance":
+                adapter = ArrayAdapter.createFromResource(this.getActivity(),
+                        R.array.distance, android.R.layout.simple_spinner_item);
+                break;
+            case "Weight":
+                adapter = ArrayAdapter.createFromResource(this.getActivity(),
+                        R.array.weight, android.R.layout.simple_spinner_item);
+                break;
+        }
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerTo.setAdapter(adapter);
+        spinnerFrom.setAdapter(adapter);
     }
     public void setText(String text){
         TextView textView = (TextView)getView().findViewById(R.id.textView);
         String textOfTextView = textView.getText().toString();
 
         if (text == "C"){
-            textView.setText("123");
+            textView.setText("");
             return;
         }
 
         if(text == "."){
-            if (text.indexOf(".") != -1){
+            if (textOfTextView.indexOf(".") != -1){
                 return;
             }
             if (textOfTextView == ""){
