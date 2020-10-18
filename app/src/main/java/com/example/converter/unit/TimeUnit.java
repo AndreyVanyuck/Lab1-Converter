@@ -5,15 +5,15 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-public class TemperatureUnit implements IValueConverter {
+public class TimeUnit implements IValueConverter {
 
     private Map<String, Double> relativeToStandard;
 
-    public TemperatureUnit(){
+    public TimeUnit(){
         relativeToStandard = new HashMap<>();
-        relativeToStandard.put("Celsius", 1.0);
-        relativeToStandard.put("Fahrenheit", 33.8);
-        relativeToStandard.put("Kelvin", 274.15);
+        relativeToStandard.put("Hour", 1.0);
+        relativeToStandard.put("Minute", 60.0);
+        relativeToStandard.put("Second", 3600.0);
     }
 
 

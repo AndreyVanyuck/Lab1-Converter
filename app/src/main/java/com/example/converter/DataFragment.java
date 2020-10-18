@@ -79,10 +79,10 @@ public class DataFragment extends Fragment {
     private void setTextSpinner(String unitCategory){
         ArrayAdapter<CharSequence> adapter = null;
         switch (unitCategory) {
-            case "Temperature":
+            case "Time":
                 adapter = ArrayAdapter.createFromResource(this.getActivity(),
-                        R.array.temperature, android.R.layout.simple_spinner_item);
-                viewModel.setUnitCategory(UnitCategory.TEMPERATURE);
+                        R.array.time, android.R.layout.simple_spinner_item);
+                viewModel.setUnitCategory(UnitCategory.TIME);
                 viewModel.setFromUnit("Celsius");
                 viewModel.setToUnit("Celsius");
                 break;
@@ -106,12 +106,15 @@ public class DataFragment extends Fragment {
         spinnerFrom.setAdapter(adapter);
     }
     public void setText(String text){
-        TextView textView = (TextView)getView().findViewById(R.id.textViewFrom);
-        String textOfTextView = textView.getText().toString();
+        TextView textViewFrom = (TextView)getView().findViewById(R.id.textViewFrom);
+        TextView textViewTo = (TextView)getView().findViewById(R.id.textViewTo);
+        String textOfTextView = textViewFrom.getText().toString();
 
         if (text == "C"){
-            textView.setText("");
+            textViewFrom.setText("");
+            textViewTo.setText("");
             viewModel.setFromValue("");
+            viewModel.setToValue("");
             return;
         }
 
@@ -120,18 +123,18 @@ public class DataFragment extends Fragment {
                 return;
             }
             if (textOfTextView == ""){
-               textView.setText("0" + text);
+                textViewFrom.setText("0" + text);
                viewModel.setFromValue("0" + text);
                return;
             }
-            textView.setText(textOfTextView + text);
+            textViewFrom.setText(textOfTextView + text);
         }
 
         if (textOfTextView == ""){
-            textView.setText(text);
+            textViewFrom.setText(text);
         }
         else {
-            textView.setText(textOfTextView + text);
+            textViewFrom.setText(textOfTextView + text);
         }
         viewModel.setFromValue(textOfTextView + text);
     }

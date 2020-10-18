@@ -11,8 +11,8 @@ public class WeightUnit implements IValueConverter {
     public WeightUnit(){
         relativeToStandard = new HashMap<>();
         relativeToStandard.put("Kilogram", 1.0);
-        relativeToStandard.put("Ton", 1000.0);
-        relativeToStandard.put("Gram", 0.001);
+        relativeToStandard.put("Ton", 0.001);
+        relativeToStandard.put("Gram", 1000.0);
     }
 
     @Override

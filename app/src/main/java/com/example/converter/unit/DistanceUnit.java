@@ -11,8 +11,8 @@ public class DistanceUnit implements IValueConverter {
     public DistanceUnit(){
         relativeToStandard = new HashMap<>();
         relativeToStandard.put("Meter", 1.0);
-        relativeToStandard.put("Inch", 0.0254);
-        relativeToStandard.put("Foot", 0.3048);
+        relativeToStandard.put("Inch", 39.3701);
+        relativeToStandard.put("Foot", 3.28084);
     }
 
 

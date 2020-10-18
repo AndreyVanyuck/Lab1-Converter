@@ -1,7 +1,7 @@
 package com.example.converter.unit;
 
 public enum UnitCategory {
-    TEMPERATURE,
+    TIME,
     DISTANCE,
     WEIGHT;
 
@@ -9,8 +9,8 @@ public enum UnitCategory {
         switch (category) {
             case WEIGHT:
                 return new WeightUnit();
-            case TEMPERATURE:
-                return new TemperatureUnit();
+            case TIME:
+                return new TimeUnit();
             case DISTANCE:
                 return new DistanceUnit();
             default:

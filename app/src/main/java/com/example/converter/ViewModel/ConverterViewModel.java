@@ -6,8 +6,6 @@ import androidx.lifecycle.ViewModel;
 import com.example.converter.unit.IValueConverter;
 import com.example.converter.unit.UnitCategory;
 
-import java.util.Locale;
-
 
 public class ConverterViewModel extends ViewModel {
     private MutableLiveData<String> fromValue;
@@ -21,7 +19,7 @@ public class ConverterViewModel extends ViewModel {
         toUnit = new MutableLiveData<>();
         fromValue = new MutableLiveData<>();
         toValue = new MutableLiveData<>();
-        unitCategory = UnitCategory.TEMPERATURE;
+        unitCategory = UnitCategory.TIME;
     }
 
     public MutableLiveData<String> getToUnit() {
@@ -32,8 +30,8 @@ public class ConverterViewModel extends ViewModel {
         return fromValue;
     }
 
-    public MutableLiveData<String> getToValue() {
-        return toValue;
+    public String getToValue() {
+        return toValue.getValue();
     }
 
     public MutableLiveData<String> getFromUnit() {
@@ -59,7 +57,7 @@ public class ConverterViewModel extends ViewModel {
     public void setUnitCategory(UnitCategory unitCategory) {
         this.unitCategory = unitCategory;
         switch (unitCategory){
-            case TEMPERATURE:
+            case TIME:
                 setFromUnit("Temperature");
                 setToUnit("Temperature");
                 break;
@@ -85,6 +83,6 @@ public class ConverterViewModel extends ViewModel {
         double converted = fromValue / basicConverter.fromString(fromUnit.getValue()) *
                 basicConverter.fromString(toUnit.getValue());
 
-        toValue.setValue(String.format(Locale.US,"%.4f", converted));
+        toValue.setValue(Double.toString(converted));
     }
 }
