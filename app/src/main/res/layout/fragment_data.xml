@@ -17,11 +17,11 @@
         android:textColor="@android:color/background_dark"
         android:textSize="20dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/spinner"
+        app:layout_constraintStart_toEndOf="@+id/spinnerFrom"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Spinner
-        android:id="@+id/spinner"
+        android:id="@+id/spinnerFrom"
         android:layout_width="106dp"
         android:layout_height="29dp"
         android:layout_marginStart="30dp"
@@ -42,11 +42,11 @@
         android:textColor="@android:color/background_dark"
         android:textSize="20dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/spinner2"
+        app:layout_constraintStart_toEndOf="@+id/spinnerTo"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <Spinner
-        android:id="@+id/spinner2"
+        android:id="@+id/spinnerTo"
         android:layout_width="106dp"
         android:layout_height="29dp"
         android:layout_marginStart="7dp"
@@ -54,10 +54,10 @@
         android:entries="@array/temperature"
         app:layout_constraintEnd_toStartOf="@+id/textView2"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinner" />
+        app:layout_constraintTop_toBottomOf="@+id/spinnerFrom" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/buttonConvert"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="172dp"
