@@ -6,7 +6,8 @@ import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
 
-import android.widget.Toast;
+import android.view.View;
+import android.widget.TextView;
 
 import com.example.converter.ViewModel.ConverterViewModel;
 
@@ -30,10 +31,6 @@ public class ConverterActivity extends AppCompatActivity implements NumPadFragme
         fragmentTransaction.add(R.id.numPadFragment,numPadFragment);
         fragmentTransaction.add(R.id.dataFragment, dataFragment);
         fragmentTransaction.commit();
-
-//        Toast toast = Toast.makeText(getApplicationContext(),
-//                "Ваш выбор: " + unit, Toast.LENGTH_SHORT);
-//        toast.show();
     }
 
     @Override

@@ -22,20 +22,8 @@ public class ConverterViewModel extends ViewModel {
         unitCategory = UnitCategory.TIME;
     }
 
-    public MutableLiveData<String> getToUnit() {
-        return toUnit;
-    }
-
-    public MutableLiveData<String> getFromValue() {
-        return fromValue;
-    }
-
     public String getToValue() {
         return toValue.getValue();
-    }
-
-    public MutableLiveData<String> getFromUnit() {
-        return fromUnit;
     }
 
     public void setToValue(String toValue) {

@@ -67,24 +67,5 @@
         app:layout_constraintHorizontal_bias="0.411"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-    <Button
-        android:id="@+id/buttonSwap"
-        android:layout_width="85dp"
-        android:layout_height="38dp"
-        android:layout_marginTop="60dp"
-        android:layout_marginEnd="92dp"
-        android:text="Swap"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/buttonCopy"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
-        android:layout_marginEnd="185dp"
-        android:text="Copy"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonConvert" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

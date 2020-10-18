@@ -1,5 +1,8 @@
 package com.example.converter;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -13,13 +16,18 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.converter.ViewModel.ConverterViewModel;
 import com.example.converter.unit.UnitCategory;
 
 
 public class DataFragment extends Fragment {
-    Button button_convert;
+    Button buttonConvert;
+    Button buttonCopy;
+    Button buttonSwap;
+    TextView textViewFrom;
+    TextView textViewTo;
     Spinner spinnerFrom;
     Spinner spinnerTo;
     ConverterViewModel viewModel;
@@ -31,7 +39,11 @@ public class DataFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_data, container, false);
 
-        button_convert = (Button) view.findViewById(R.id.buttonConvert);
+        buttonConvert = (Button) view.findViewById(R.id.buttonConvert);
+        buttonCopy = (Button) view.findViewById(R.id.buttonCopy);
+        buttonSwap = (Button) view.findViewById(R.id.buttonSwap);
+        textViewFrom = (TextView) view.findViewById(R.id.textViewFrom);
+        textViewTo = (TextView) view.findViewById(R.id.textViewTo);
         spinnerFrom = (Spinner) view.findViewById(R.id.spinnerFrom);
         spinnerTo = (Spinner) view.findViewById(R.id.spinnerTo);
         viewModel = new ViewModelProvider(requireActivity()).get(ConverterViewModel.class);
@@ -65,14 +77,39 @@ public class DataFragment extends Fragment {
 
 
 
-        button_convert.setOnClickListener(new View.OnClickListener(){
+        buttonConvert.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                TextView textViewTo = (TextView) getActivity().findViewById(R.id.textViewTo);
                 viewModel.convert();
                 textViewTo.setText(viewModel.getToValue().toString());
             }
         });
+
+        buttonSwap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                viewModel.setFromValue(textViewTo.getText().toString());
+
+                CharSequence textFrom = textViewFrom.getText();
+                textViewFrom.setText(textViewTo.getText());
+                textViewTo.setText(textFrom);
+
+                int selectedItemPositionFrom =  spinnerFrom.getSelectedItemPosition();
+                spinnerFrom.setSelection(spinnerTo.getSelectedItemPosition());
+                spinnerTo.setSelection(selectedItemPositionFrom);
+            }
+        });
+        buttonCopy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ClipboardManager clipboard = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
+                ClipData clip = ClipData.newPlainText("Copied text", textViewTo.getText());
+                clipboard.setPrimaryClip(clip);
+
+                Toast.makeText(getActivity(), "Saved: " + textViewTo.getText().toString() , Toast.LENGTH_SHORT).show();
+            }
+        });
+
         return view;
     }
 
@@ -83,8 +120,8 @@ public class DataFragment extends Fragment {
                 adapter = ArrayAdapter.createFromResource(this.getActivity(),
                         R.array.time, android.R.layout.simple_spinner_item);
                 viewModel.setUnitCategory(UnitCategory.TIME);
-                viewModel.setFromUnit("Celsius");
-                viewModel.setToUnit("Celsius");
+                viewModel.setFromUnit("Hour");
+                viewModel.setToUnit("Hour");
                 break;
             case "Distance":
                 adapter = ArrayAdapter.createFromResource(this.getActivity(),
