@@ -1,19 +1,24 @@
 package com.example.converter.unit;
 
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class WeightUnit implements IValueConverter {
-    @Override
-    public double Convert(double num) {
-        return 0;
+
+    private Map<String, Double> relativeToStandard;
+
+    public WeightUnit(){
+        relativeToStandard = new HashMap<>();
+        relativeToStandard.put("Kilogram", 1.0);
+        relativeToStandard.put("Ton", 1000.0);
+        relativeToStandard.put("Gram", 0.001);
     }
 
     @Override
-    public void SetTargetMetric(String targetMetric) {
-
-    }
-
-    @Override
-    public void SetSourceMetric(String sourceMetric) {
-
+    public double fromString(String s) {
+        if (relativeToStandard.containsKey(s))
+            return relativeToStandard.get(s);
+        else throw new IllegalArgumentException();
     }
 }
