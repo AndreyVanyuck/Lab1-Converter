@@ -5,7 +5,11 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
@@ -21,6 +25,8 @@ import android.widget.Toast;
 import com.example.converter.ViewModel.ConverterViewModel;
 import com.example.converter.unit.UnitCategory;
 
+import java.util.Objects;
+
 
 public class DataFragment extends Fragment {
     Button buttonConvert;
@@ -28,9 +34,24 @@ public class DataFragment extends Fragment {
     Button buttonSwap;
     TextView textViewFrom;
     TextView textViewTo;
-    Spinner spinnerFrom;
+    Spinner spinnerFrom ;
     Spinner spinnerTo;
     ConverterViewModel viewModel;
+//
+//    @Override
+//    public void onSaveInstanceState(@NonNull Bundle outState) {
+//        super.onSaveInstanceState(outState);
+//        outState.putInt("spinnerFrom", spinnerFrom.getSelectedItemPosition());
+//    }
+//
+//    @Override
+//    public void onCreate(@Nullable Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        if(savedInstanceState != null){
+//            spinnerFrom.setSelection(savedInstanceState.getInt("spinnerFrom"));
+//        }
+//    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -76,23 +97,36 @@ public class DataFragment extends Fragment {
         });
 
 
+        final Observer<String> valueFromObserver = new Observer<String>() {
+            @Override
+            public void onChanged(String s) {
+                textViewFrom.setText(s);
+            }
+        };
+        final Observer<String> valueToObserver = new Observer<String>() {
+            @Override
+            public void onChanged(String s) {
+                textViewTo.setText(s);
+            }
+        };
+        viewModel.getFromValue().observe(getViewLifecycleOwner(), valueFromObserver);
+        viewModel.getToValue().observe(getViewLifecycleOwner(), valueToObserver);
 
         buttonConvert.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                viewModel.convert();
-                textViewTo.setText(viewModel.getToValue().toString());
+                if(!Objects.equals(viewModel.getFromValue().getValue(), "")){
+                    viewModel.convert();
+                }
             }
         });
 
         buttonSwap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                viewModel.setFromValue(textViewTo.getText().toString());
-
-                CharSequence textFrom = textViewFrom.getText();
-                textViewFrom.setText(textViewTo.getText());
-                textViewTo.setText(textFrom);
+                String textFromValue = viewModel.getFromValue().getValue();
+                viewModel.setFromValue(viewModel.getToValue().getValue());
+                viewModel.setToValue(textFromValue);
 
                 int selectedItemPositionFrom =  spinnerFrom.getSelectedItemPosition();
                 spinnerFrom.setSelection(spinnerTo.getSelectedItemPosition());
@@ -141,38 +175,5 @@ public class DataFragment extends Fragment {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerTo.setAdapter(adapter);
         spinnerFrom.setAdapter(adapter);
-    }
-    public void setText(String text){
-        TextView textViewFrom = (TextView)getView().findViewById(R.id.textViewFrom);
-        TextView textViewTo = (TextView)getView().findViewById(R.id.textViewTo);
-        String textOfTextView = textViewFrom.getText().toString();
-
-        if (text == "C"){
-            textViewFrom.setText("");
-            textViewTo.setText("");
-            viewModel.setFromValue("");
-            viewModel.setToValue("");
-            return;
-        }
-
-        if(text == "."){
-            if (textOfTextView.indexOf(".") != -1){
-                return;
-            }
-            if (textOfTextView == ""){
-                textViewFrom.setText("0" + text);
-               viewModel.setFromValue("0" + text);
-               return;
-            }
-            textViewFrom.setText(textOfTextView + text);
-        }
-
-        if (textOfTextView == ""){
-            textViewFrom.setText(text);
-        }
-        else {
-            textViewFrom.setText(textOfTextView + text);
-        }
-        viewModel.setFromValue(textOfTextView + text);
     }
 }

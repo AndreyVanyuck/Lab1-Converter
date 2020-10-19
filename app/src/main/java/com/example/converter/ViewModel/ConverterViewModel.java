@@ -15,15 +15,24 @@ public class ConverterViewModel extends ViewModel {
     private UnitCategory unitCategory;
 
     public ConverterViewModel(){
-        fromUnit = new MutableLiveData<>();
-        toUnit = new MutableLiveData<>();
-        fromValue = new MutableLiveData<>();
-        toValue = new MutableLiveData<>();
+        fromUnit = new MutableLiveData<>("");
+        toUnit = new MutableLiveData<>("");
+        fromValue = new MutableLiveData<>("");
+        toValue = new MutableLiveData<>("");
         unitCategory = UnitCategory.TIME;
     }
 
-    public String getToValue() {
-        return toValue.getValue();
+    public MutableLiveData<String> getToValue() {
+        if(toValue == null){
+            toValue = new MutableLiveData<>("");
+        }
+        return toValue;
+    }
+    public MutableLiveData<String> getFromValue() {
+        if(fromValue == null){
+            fromValue = new MutableLiveData<>("");
+        }
+        return fromValue; 
     }
 
     public void setToValue(String toValue) {
@@ -44,20 +53,6 @@ public class ConverterViewModel extends ViewModel {
 
     public void setUnitCategory(UnitCategory unitCategory) {
         this.unitCategory = unitCategory;
-        switch (unitCategory){
-            case TIME:
-                setFromUnit("Temperature");
-                setToUnit("Temperature");
-                break;
-            case WEIGHT:
-                setFromUnit("Kilogram");
-                setToUnit("Kilogram");
-                break;
-            case DISTANCE:
-                setFromUnit("Meter");
-                setToUnit("Meter");
-                break;
-        }
     }
 
     public void convert(){
@@ -68,6 +63,7 @@ public class ConverterViewModel extends ViewModel {
         double fromValue = Double.parseDouble(fromString);
 
         IValueConverter basicConverter = UnitCategory.createUnit(unitCategory);
+
         double converted = fromValue / basicConverter.fromString(fromUnit.getValue()) *
                 basicConverter.fromString(toUnit.getValue());
 

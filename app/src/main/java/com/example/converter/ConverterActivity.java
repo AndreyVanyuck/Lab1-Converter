@@ -13,7 +13,7 @@ import com.example.converter.ViewModel.ConverterViewModel;
 
 
 
-public class ConverterActivity extends AppCompatActivity implements NumPadFragment.OnFragmentInteractionListener {
+public class ConverterActivity extends AppCompatActivity {
     NumPadFragment numPadFragment;
     DataFragment dataFragment;
     ConverterViewModel viewModel;
@@ -31,11 +31,5 @@ public class ConverterActivity extends AppCompatActivity implements NumPadFragme
         fragmentTransaction.add(R.id.numPadFragment,numPadFragment);
         fragmentTransaction.add(R.id.dataFragment, dataFragment);
         fragmentTransaction.commit();
-    }
-
-    @Override
-    public void onFragmentInteraction(String text) {
-        DataFragment fragment = (DataFragment) getSupportFragmentManager().findFragmentById(R.id.dataFragment);
-        fragment.setText(text);
     }
 }
