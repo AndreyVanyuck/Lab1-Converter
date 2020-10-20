@@ -14,13 +14,37 @@ public class ConverterViewModel extends ViewModel {
     private MutableLiveData<String>  toUnit;
     private UnitCategory unitCategory;
 
+    private MutableLiveData<String> selectedIdSpinnerTo;
+    private MutableLiveData<String> selectedIdSpinnerFrom;
+
     public ConverterViewModel(){
         fromUnit = new MutableLiveData<>("");
         toUnit = new MutableLiveData<>("");
         fromValue = new MutableLiveData<>("");
         toValue = new MutableLiveData<>("");
         unitCategory = UnitCategory.TIME;
+
+        selectedIdSpinnerFrom = new MutableLiveData<>("0");
+        selectedIdSpinnerTo = new MutableLiveData<>("1");
     }
+
+
+    public MutableLiveData<String> getSelectedIdSpinnerFrom() {
+        return selectedIdSpinnerFrom;
+    }
+
+    public void setSelectedIdSpinnerFrom(String selectedIdSpinnerFrom) {
+        this.selectedIdSpinnerFrom.setValue(selectedIdSpinnerFrom);
+    }
+
+    public MutableLiveData<String> getSelectedIdSpinnerTo() {
+        return selectedIdSpinnerTo;
+    }
+
+    public void setSelectedIdSpinnerTo(String selectedIdSpinnerTo) {
+        this.selectedIdSpinnerTo.setValue(selectedIdSpinnerTo);
+    }
+
 
     public MutableLiveData<String> getToValue() {
         if(toValue == null){

@@ -37,20 +37,6 @@ public class DataFragment extends Fragment {
     Spinner spinnerFrom ;
     Spinner spinnerTo;
     ConverterViewModel viewModel;
-//
-//    @Override
-//    public void onSaveInstanceState(@NonNull Bundle outState) {
-//        super.onSaveInstanceState(outState);
-//        outState.putInt("spinnerFrom", spinnerFrom.getSelectedItemPosition());
-//    }
-//
-//    @Override
-//    public void onCreate(@Nullable Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        if(savedInstanceState != null){
-//            spinnerFrom.setSelection(savedInstanceState.getInt("spinnerFrom"));
-//        }
-//    }
 
 
     @Override
@@ -76,6 +62,8 @@ public class DataFragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 viewModel.setFromUnit(spinnerFrom.getSelectedItem().toString());
+
+                viewModel.setSelectedIdSpinnerFrom(Integer.toString(spinnerFrom.getSelectedItemPosition())); ///
             }
 
             @Override
@@ -88,6 +76,8 @@ public class DataFragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 viewModel.setToUnit(spinnerTo.getSelectedItem().toString());
+
+                viewModel.setSelectedIdSpinnerTo(Integer.toString(spinnerTo.getSelectedItemPosition())); ///
             }
 
             @Override
@@ -111,6 +101,23 @@ public class DataFragment extends Fragment {
         };
         viewModel.getFromValue().observe(getViewLifecycleOwner(), valueFromObserver);
         viewModel.getToValue().observe(getViewLifecycleOwner(), valueToObserver);
+
+
+        final Observer<String> spinnerFromValueObserver = new Observer<String>() {
+            @Override
+            public void onChanged(String s) {
+                spinnerFrom.setSelection(Integer.parseInt(s));
+            }
+        };
+
+        final Observer<String> spinnerToValueObserver = new Observer<String>() {
+            @Override
+            public void onChanged(String s) {
+                spinnerTo.setSelection(Integer.parseInt(s));
+            }
+        };
+        viewModel.getSelectedIdSpinnerFrom().observe(getViewLifecycleOwner(), spinnerFromValueObserver);
+        viewModel.getSelectedIdSpinnerTo().observe(getViewLifecycleOwner(), spinnerToValueObserver);
 
         buttonConvert.setOnClickListener(new View.OnClickListener(){
             @Override
