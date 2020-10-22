@@ -11,3 +11,9 @@ A 'Unit/Currency Converter' application.
    - There should be a button, that will switch initial and converted values (and units) and vice-versa.
    - A button to copy current value to the clipboard near each data field.
    - Use source sets to define different layouts and files with code for each flavour.
+
+
+![alt text](https://sun9-20.userapi.com/Bet99qqu4XYXVU0cBhh3r3IcAaE11pLEhPJM8Q/FjLVpEyoPnc.jpg)
+![alt text](https://sun9-64.userapi.com/Kt1VuQyHXRNE3__I83VNfQ0lKfcK2_hzs8-xhw/iZ_qTZftTG4.jpg)
+![alt text](https://sun9-7.userapi.com/OFU-UGrUAXAyXleZb0XW2Q2M5K8qI8a7wbWr2Q/z9DeVdZBAGk.jpg)
+![alt text](https://sun9-26.userapi.com/N_C4uX-dwdEMhtolOPM-0aCaYRqxFzovDiendw/bMNRtY0uy34.jpg)
